@@ -1,0 +1,15 @@
+.centered-container {
+    display: flex;                 /* flex */
+    flex-direction: column;       /* flex-col */
+    align-items: center;          /* items-center */
+    justify-content: center;      /* justify-center */
+    min-height: 100vh;           /* min-h-screen */
+    padding-top: 0.5rem;         /* py-2 (top) */
+    padding-bottom: 0.5rem;      /* py-2 (bottom) */
+    background-color: black;
+    color: aqua;
+}
+.text-4xl {
+    font-size: 2.25rem;   /* 36px */
+    line-height: 1;       /* Adjust this if needed */
+}

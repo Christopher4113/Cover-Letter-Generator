@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import "./styles.css";
 //import {axios} from 'axios';
 
-const Signuppage = () => {
+const SignupPage = () => {
   const [user, setUser] = React.useState({
     email: "",
     password: "",
@@ -45,4 +45,4 @@ const Signuppage = () => {
   )
 }
 
-export default Signuppage
+export default SignupPage
