@@ -30,11 +30,11 @@ const Signuppage = () => {
               <input type="password" className="input" placeholder="Password" id='password' value = {user.password} 
               onChange={(e) => setUser({...user,password: e.target.value})} />
             </div>
-            <button>Sign up</button>
+            <button onClick={onSignup}>Sign up</button>
           </form>
           <div className="form-section">
             <p>
-              Have an account? <a href="">Log in</a>{" "}
+              Have an account? <Link href="/login">Login</Link>{" "}
             </p>
           </div>
         </div>

@@ -23,34 +23,19 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
-body {
-  --s: 100px; /* control the size */
-  --c1: #F8B195;
-  --c2: #355C7D;
-  
-  --_g: 
-     var(--c2) 6%  14%,var(--c1) 16% 24%,var(--c2) 26% 34%,var(--c1) 36% 44%,
-     var(--c2) 46% 54%,var(--c1) 56% 64%,var(--c2) 66% 74%,var(--c1) 76% 84%,var(--c2) 86% 94%;
-  background:
-    radial-gradient(100% 100% at 100% 0,var(--c1) 4%,var(--_g),#0008 96%,#0000),
-    radial-gradient(100% 100% at 0 100%,#0000, #0008 4%,var(--_g),var(--c1) 96%)
-    var(--c1);
-  background-size: var(--s) var(--s);
-}
 
 
 
 
-.form-box {
+.form-box2 {
     max-width: 300px;
     background: #f1f7fe;
     overflow: hidden;
     border-radius: 16px;
     color: #010101;
-    border-color: #010101;
   }
   
-  .form {
+  .form2 {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -60,18 +45,18 @@ body {
   }
   
   /*Form text*/
-  .title {
+  .title2 {
     font-weight: bold;
     font-size: 1.6rem;
   }
   
-  .subtitle {
+  .subtitle2 {
     font-size: 1rem;
     color: #666;
   }
   
   /*Inputs box*/
-  .form-container {
+  .form-container2 {
     overflow: hidden;
     border-radius: 8px;
     background-color: #fff;
@@ -90,26 +75,26 @@ body {
     padding: 8px 15px;
   }
   
-  .form-section {
+  .form-section2 {
     padding: 16px;
     font-size: .85rem;
     background-color: #e0ecfb;
     box-shadow: rgb(0 0 0 / 8%) 0 -1px;
   }
   
-  .form-section Link {
+  .form-section2 Link {
     font-weight: bold;
     color: #0066ff;
     transition: color .3s ease;
   }
   
-  .form-section a:hover {
+  .form-section2 a:hover {
     color: #005ce6;
     text-decoration: underline;
   }
   
   /*Button*/
-  .form button {
+  .form2 button {
     background-color: #0066ff;
     color: #fff;
     border: 0;
@@ -121,6 +106,6 @@ body {
     transition: background-color .3s ease;
   }
   
-  .form button:hover {
+  .form2 button:hover {
     background-color: #005ce6;
   }
