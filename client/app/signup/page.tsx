@@ -18,7 +18,7 @@ const SignupPage = () => {
 
   const onSignup = async () => {
     try {
-      setLoading(false)
+      setLoading(true)
       const response = await axios.post("/api/users/signup",user);
       console.log("Signup success", response.data);
       router.push("/login");
@@ -54,7 +54,7 @@ const SignupPage = () => {
               <input type="password" className="input" placeholder="Password" id='password' value = {user.password} 
               onChange={(e) => setUser({...user,password: e.target.value})} />
             </div>
-            <button onClick={onSignup}>{buttonDisabled ? "No Signup" : "Signup"}</button>
+            <button onClick={onSignup} disabled={buttonDisabled}>{buttonDisabled ? "No Signup" : "Signup"}</button>
           </form>
           <div className="form-section">
             <p>
