@@ -3,7 +3,7 @@ import React from 'react'
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import "./login.css";
-//import {axios} from 'axios';
+import axios from 'axios';
 
 const LoginPage = () => {
   const [user, setUser] = React.useState({
