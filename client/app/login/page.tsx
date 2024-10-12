@@ -1,9 +1,10 @@
 "use client";
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import "./login.css";
 import axios from 'axios';
+import {toast} from 'react-hot-toast';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -13,14 +14,35 @@ const LoginPage = () => {
   });
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+
   const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();    
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/login",user);
+      console.log("Login success", response.data);
+      toast.success("Login Success")
+      router.push("/profile");
+    } catch (error:any) {
+      console.log("Login failed", error.message);
+      toast.error(error.message);
+    }finally {
+      setLoading(false)
+    }    
   }
+
+  useEffect(() => {
+    if (user.email.length > 0 && user.password.length > 0) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  },[user]);
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
         <div className="form-box2">
           <form className="form2">
-            <span className="title2">Login</span>
+            <span className="title2">{loading ? "Processing": "Login"}</span>
             <span className="subtitle2">
               Hello Welcome!
             </span>
@@ -30,7 +52,7 @@ const LoginPage = () => {
               <input type="password" className="input" placeholder="Password" id='password' value = {user.password} 
               onChange={(e) => setUser({...user,password: e.target.value})} />
             </div>
-            <button onClick={onLogin}>Login</button>
+            <button onClick={onLogin} disabled={buttonDisabled}>{buttonDisabled ? "No Login": "Login"}</button>
           </form>
           <div className="form-section2">
             <p>
