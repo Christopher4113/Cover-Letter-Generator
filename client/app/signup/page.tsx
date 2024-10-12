@@ -16,7 +16,7 @@ const SignupPage = () => {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const onSignup = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onSignup = async (e: any) => {
     e.preventDefault();
     try {
       setLoading(true)
