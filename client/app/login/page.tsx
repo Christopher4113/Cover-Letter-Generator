@@ -6,11 +6,15 @@ import "./login.css";
 import axios from 'axios';
 
 const LoginPage = () => {
+  const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
   });
-  const onLogin = async () => {    
+  const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const onLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();    
   }
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
