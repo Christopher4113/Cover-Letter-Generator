@@ -36,4 +36,30 @@
     box-shadow: none;
     opacity: 80%;
   }
+button,
+button:focus {
+  font-size: 17px;
+  padding: 10px 25px;
+  border-radius: 0.7rem;
+  background-image: linear-gradient(rgb(214, 202, 254), rgb(158, 129, 254));
+  border: 2px solid rgb(50, 50, 50);
+  border-bottom: 5px solid rgb(50, 50, 50);
+  box-shadow: 0px 1px 6px 0px rgb(158, 129, 254);
+  transform: translate(0, -3px);
+  cursor: pointer;
+  transition: 0.2s;
+  transition-timing-function: linear;
+}
+
+button:active {
+  transform: translate(0, 0);
+  border-bottom: 2px solid rgb(50, 50, 50);
+}
+.nothing {
+  padding: 12px; /* Tailwind's p-3 is equivalent to 12px padding */
+  border-radius: 0.375rem; /* Tailwind's rounded is 6px or 0.375rem */
+  background-color: #22c55e; /* Tailwind's bg-green-500 corresponds to this green color */
+}
+
+   
   
