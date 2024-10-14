@@ -34,7 +34,7 @@ const ProfilePage = () => {
        <h2 className="nothing">{data === 'nothing' ? "Nothing" : <Link href={`/profile/${data}`}>{data}</Link>}</h2>
        <br />
        <button onClick={logout} className="Logout">Logout</button>
-       <button onClick={getUserDetails}>GetUser Details</button>
+       <button className="custom-button" onClick={getUserDetails} >GetUser Details</button>
     </div>
   )
 }
