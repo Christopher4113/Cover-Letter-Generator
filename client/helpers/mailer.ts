@@ -22,10 +22,23 @@ export const sendEmail = async({email,emailType, userId}: any) => {
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
-                user: "0302e75535a355",
-                pass: "071938eb21f6b3"
+                user: process.env.user,
+                pass: process.env.pass
             }
         });
+
+        const mailOptions = {
+            from: 'ch.lam1328@gmail.com',
+            to: email,
+            subject: emailType === "VERIFY" ? "Verify your email": "Reset your password",
+            html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
+            or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
+            </p>`
+        } // when deploying we got to switch the proccess.env.DOMAIN to the website of the domain instead of local host
+
+        const mailresponse = await transport.sendMail
+        (mailOptions);
+        return mailresponse;
 
 
     } catch (error: any) {
