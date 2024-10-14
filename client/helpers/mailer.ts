@@ -35,6 +35,7 @@ export const sendEmail = async({email,emailType, userId}: any) => {
             or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
             </p>`
         } // when deploying we got to switch the proccess.env.DOMAIN to the website of the domain instead of local host
+        //so deploy first get that domain and replace it in the .env file but then when we get our custom domain repalce that in the.env file
 
         const mailresponse = await transport.sendMail
         (mailOptions);
