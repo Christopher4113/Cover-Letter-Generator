@@ -19,7 +19,7 @@ const ForgotPage = () => {
         e.preventDefault();
         try {
           setLoading(true);
-          const response = await axios.post("/api/users/forgot",user);
+          const response = await axios.put("/api/users/forgot",user);
           console.log("Changes success", response.data);
           toast.success("Changes Success")
           router.push("/profile"); 
