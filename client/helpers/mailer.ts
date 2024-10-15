@@ -32,7 +32,7 @@ export const sendEmail = async({email,emailType, userId}: any) => {
             from: 'christopher.L4n@gmail.com',
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email": "Reset your password",
-            html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
+            html: `<p> Hello and thank you for signing up to use the AI-cover letter generator. <br> Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
             or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
             </p>`
         } // when deploying we got to switch the proccess.env.DOMAIN to the website of the domain instead of local host
