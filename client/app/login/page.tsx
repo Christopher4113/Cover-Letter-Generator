@@ -39,7 +39,7 @@ const LoginPage = () => {
     }
   },[user]);
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen py-2'>
+    <div className='flex flex-col items-center justify-center min-h-screen py-2 login-img'>
         <div className="form-box2">
           <form className="form2">
             <span className="title2">{loading ? "Processing": "Login"}</span>
@@ -57,6 +57,9 @@ const LoginPage = () => {
           <div className="form-section2">
             <p>
               Don't have an account? <Link href="/signup">Signup</Link>{" "}
+            </p>
+            <p>
+              Forgot Password? <Link href="/forgot">Forgot Password</Link>
             </p>
           </div>
         </div>
