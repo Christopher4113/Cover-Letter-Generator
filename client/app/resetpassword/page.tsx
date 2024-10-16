@@ -4,14 +4,14 @@ import Link from "next/link";
 import React, {useEffect,useState} from "react";
 import "./verifypassword.css";
 
-export default function VerifyPasswordPage() {
+export default function ResetPasswordPage() {
     const [token,setToken] = useState("");
     const [verified,setVerified] = useState(false);
     const [error,setError] = useState(false);
 
     const verifyNewPassword = async () => {
         try {
-            await axios.post('/api/users/verifypassword', {token})
+            await axios.post('/api/users/resetpassword', {token})
             setVerified(true);
         } catch (error:any) {
             setError(true);
