@@ -22,7 +22,7 @@ const ForgotPage = () => {
           const response = await axios.put("/api/users/forgot",user);
           console.log("Changes success", response.data);
           toast.success("Changes Success")
-          router.push("/profile"); 
+          router.push("/login"); 
         } catch (error:any) {
           console.log("Changes failed", error.message);
           toast.error(error.message);
@@ -45,9 +45,9 @@ const ForgotPage = () => {
     <div className='flex flex-col items-center justify-center min-h-screen py-2 background-img'>
         <div className="form-box3">
           <form className="form3">
-            <span className="title3">{loading ? "Processing": "Login"}</span>
+            <span className="title3">{loading ? "Processing": "New Password"}</span>
             <span className="subtitle3">
-              Hello Welcome!
+              Please enter new password!
             </span>
             <div className="form-container3">
               <input type="email" className="input" placeholder="Email" id='email' value = {user.email} 

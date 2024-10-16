@@ -31,6 +31,12 @@ export async function PUT(request: NextRequest) {
         // Optionally, send a confirmation email about the password reset
         await sendEmail({ email, emailType: "RESET", userId: updatedUser._id });
 
+        return NextResponse.json({
+            message: "Password updated successfully",
+            success: true,
+            updatedUser
+        });
+
     } catch (error: any) {
         return NextResponse.json({error:error.message},
             {status:500})

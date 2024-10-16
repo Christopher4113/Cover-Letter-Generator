@@ -47,3 +47,4 @@ export const sendEmail = async({email,emailType, userId}: any) => {
         throw new Error(error.message);
     }
 }
+//${emailType === "VERIFY" ? 'verifyemail' : 'verifypassword'}
