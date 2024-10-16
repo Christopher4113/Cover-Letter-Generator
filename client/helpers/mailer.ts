@@ -32,8 +32,8 @@ export const sendEmail = async({email,emailType, userId}: any) => {
             from: 'christopher.L4n@gmail.com',
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email": "Reset your password",
-            html: `<p> Hello and thank you for signing up to use the AI-cover letter generator. <br> Click <a href="${process.env.DOMAIN}/${emailType === "VERIFY" ? 'verifyemail' : 'resetpassword'}?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
-            or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/${emailType === "VERIFY" ? 'verifyemail' : 'resetpassword'}?token=${hashedToken}
+            html: `<p> Hello and thank you for signing up to use the AI-cover letter generator. <br> Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
+            or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
             </p>`
         } // when deploying we got to switch the proccess.env.DOMAIN to the website of the domain instead of local host
         //so deploy first get that domain and replace it in the .env file but then when we get our custom domain repalce that in the.env file
@@ -47,4 +47,3 @@ export const sendEmail = async({email,emailType, userId}: any) => {
         throw new Error(error.message);
     }
 }
-//${emailType === "VERIFY" ? 'verifyemail' : 'verifypassword'}
