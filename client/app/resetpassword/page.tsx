@@ -30,12 +30,11 @@ export default function ResetPasswordPage() {
     },[token]);
     return (
         <div className="flex-container">
-            <h1 className="text-4xl">Verify New Password </h1>
-            <h2 className="token">{token ? `${token}` : "no token"}</h2>
+            <h1 className="text-4xl">Congrats You Verified New Password </h1>
 
             {verified && (
                 <div>
-                    <h2 className="text-2xl">New Password Verified</h2>
+                    <p>Click below to login</p>
                     <Link className="login-button" href="/login">
                         Login
                     </Link>
@@ -43,7 +42,7 @@ export default function ResetPasswordPage() {
             )}
             {error && (
                 <div>
-                    <h2 className="text-2xl bg-red-500 text-black">Error</h2>
+                    <h2 className="text-2xl">Error: There may have been a mistake when verifying Password</h2>
                     
                 </div>
             )}
