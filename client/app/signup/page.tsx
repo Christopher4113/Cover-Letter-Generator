@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import "./styles.css";
-import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
 const SignupPage = () => {
@@ -24,8 +23,19 @@ const SignupPage = () => {
       console.log("Signup success", response.data);
       router.push("/login")
     } catch (error: any) {
-      console.log("Signup failed", error.message);
-      toast.error(error.message);
+      if (error.response && error.response.data && error.response.data.error) {
+        console.log("Signup failed", error.response.data.error); // Log the specific error
+        alert(error.response.data.error); // Show the error message in an alert
+      } else {
+          console.log("Signup failed", error.message);
+          alert("Signup failed: " + error.message);
+      }
+      // Reset the form fields
+      setUser({
+        email: "",
+        password: "",
+        username: ""
+      });
     }finally {
       setLoading(false);
     }  
