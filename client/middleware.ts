@@ -27,6 +27,8 @@ export const config = {
         '/verifyemail',
         '/forgot',
         '/verifypassword',
-        '/start'
+        '/start',
+        '/resume',
+        '/coverletter'
     ]
 }

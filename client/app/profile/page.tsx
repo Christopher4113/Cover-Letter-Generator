@@ -4,7 +4,6 @@ import Link from "next/link";
 import { toast } from "react-hot-toast";
 import React from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image"; // Import Image from Next.js
 import './profile.css'; // Ensure the CSS file is included
 
 
@@ -42,7 +41,7 @@ const ProfilePage = () => {
               </Link>
             </div>
 
-            <div className="cover-letter">
+            <div className="coverletter">
               <div className="cover-letter-icon"></div>
               <br/>
               <Link href="/cover-letter" className="pushable">
