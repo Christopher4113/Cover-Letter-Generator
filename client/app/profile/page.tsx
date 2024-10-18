@@ -41,10 +41,10 @@ const ProfilePage = () => {
               </Link>
             </div>
 
-            <div className="coverletter">
+            <div className="cover-letter">
               <div className="cover-letter-icon"></div>
               <br/>
-              <Link href="/cover-letter" className="pushable">
+              <Link href="/coverletter" className="pushable">
                 <span className="shadow"></span>
                 <span className="edge"></span>
                 <span className="front">Create Cover Letter</span>

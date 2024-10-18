@@ -191,4 +191,5 @@
   display: flex;               /* Enable flexbox for resume and cover letter */
   flex-direction: column;      /* Align items vertically */
   align-items: center;         /* Center items horizontally */
+  justify-content: center;
 }
