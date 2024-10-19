@@ -32,6 +32,13 @@ const ResumePage = () => {
       formData.append("title", title);
       formData.append("file", file);
       console.log(title, file);
+      const result = await axios.post("/api/users/resume",formData, 
+        {
+          headers: {"Content-Type": "multipart/form-data"},
+        }
+      );
+      console.log(result)
+      
     } catch (error:any) {
       if (error.response && error.response.data && error.response.data.error) {
         console.log("Signup failed", error.response.data.error); // Log the specific error
