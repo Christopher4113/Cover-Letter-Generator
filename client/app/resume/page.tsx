@@ -1,9 +1,28 @@
 "use client"
 import React from 'react'
+import Link from 'next/link'
+import { useRouter } from "next/navigation";
+import axios from 'axios';
+import './resume.css'
 
 const ResumePage = () => {
+  const router = useRouter();
+
+  const logout = async (e: React.MouseEvent) => {
+    try {
+      e.preventDefault();
+      await axios.get("/api/users/logout");
+      router.push("/login");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
   return (
-    <div>page</div>
+    <div>
+      <button onClick={logout} className="Logout">
+        Logout
+      </button>
+    </div>
   )
 }
 
