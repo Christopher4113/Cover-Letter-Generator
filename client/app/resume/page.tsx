@@ -18,7 +18,13 @@ const ResumePage = () => {
     }
   };
   return (
-    <div>
+    <div className='background'>
+
+
+
+      
+      
+      <Link href="/profile" className='menu-button'> Menu </Link>
       <button onClick={logout} className="Logout">
         Logout
       </button>
