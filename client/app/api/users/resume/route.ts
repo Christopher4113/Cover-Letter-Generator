@@ -1,48 +1,24 @@
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest,NextResponse } from "next/server";
-import multer from 'multer';
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '.files');
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now();
-      cb(null, uniqueSuffix+file.originalname);
-    },
-  });
-  
-const upload = multer({ storage: storage });
+import jwt from 'jsonwebtoken';  // Ensure JWT is imported
+import { getDataFromToken } from "@/helpers/getDataFromToken"; // Adjust the import path accordingly
+import { error } from "console";
+const SECRET_KEY = process.env.TOKEN_SECRET|| 'your-secret-key';  // Define the secret key
 
 
 connect()
 
-// Define the POST request handler
-export const POST = async (req: NextRequest, res: NextResponse) => {
-    return new Promise((resolve, reject) => {
-      // Multer middleware to handle the file upload
-      upload.single('file')(req as any, res as any, async (err: any) => {
-        if (err) {
-          // Handle multer errors
-          return reject(
-            NextResponse.json({ message: "File upload failed", error: err }, { status: 500 })
-          );
+const authenticateToken = async (req: NextRequest) => {
+    try {
+        const userId = getDataFromToken(req); // Use your utility function to get user ID
+        const user = await User.findById(userId); // Fetch user from the database
+        if (!user) {
+            return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
-  
-        try {
-          // Process the uploaded file here (e.g., save file info to the database)
+        return user; // Token is valid, return user data
+    } catch (err: any) {
+        return NextResponse.json({ error: err.message || "Authentication failed" }, { status: 403 });
+    }
+};
 
-  
-          resolve(
-            NextResponse.json({ message: "File uploaded successfully" }, { status: 200 })
-          );
-        } catch (error) {
-          // Handle any other errors
-          reject(
-            NextResponse.json({ message: "Server error", error }, { status: 500 })
-          );
-        }
-      });
-    });
-  };

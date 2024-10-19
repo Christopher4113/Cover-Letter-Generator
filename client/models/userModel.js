@@ -1,4 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { Collection } from 'mongoose';
+
+
+const PdfDetailsSchema = new mongoose.Schema({
+    pdf: String,
+    title: String
+},{collection:"Pdfdetails"})
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -26,7 +32,8 @@ const userSchema = new mongoose.Schema({
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
-    verifyTokenExpiry: Date
+    verifyTokenExpiry: Date,
+    pdf: [PdfDetailsSchema]
 });
 
 const User = mongoose.models.users || mongoose.model("users",userSchema)
