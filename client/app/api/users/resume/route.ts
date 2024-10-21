@@ -4,6 +4,7 @@ import { NextRequest,NextResponse } from "next/server";
 import jwt from 'jsonwebtoken';  // Ensure JWT is imported
 import { getDataFromToken } from "@/helpers/getDataFromToken"; // Adjust the import path accordingly
 import { error } from "console";
+import { jsxs } from "react/jsx-runtime";
 const SECRET_KEY = process.env.TOKEN_SECRET|| 'your-secret-key';  // Define the secret key
 
 
@@ -22,3 +23,13 @@ const authenticateToken = async (req: NextRequest) => {
     }
 };
 
+export async function POST(request: NextRequest, authenticateToken: String) {
+    try {
+        const reqBody = await request.json()
+        const {title, file} = reqBody
+        
+    } catch (error: any) {
+        return NextResponse.json({error: error.message},
+            {status: 500})
+    }
+}
