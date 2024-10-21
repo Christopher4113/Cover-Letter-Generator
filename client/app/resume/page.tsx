@@ -10,7 +10,7 @@ const ResumePage = () => {
     const [file, setFile] = useState<File | null>(null); // File type for file
     const router = useRouter();
 
-    // Retrieve the token from cookies
+    /****  Retrieve the token from cookies
     const getTokenFromCookies = () => {
         const cookieName = "token=";
         const decodedCookie = decodeURIComponent(document.cookie);
@@ -32,6 +32,7 @@ const ResumePage = () => {
             router.push("/login");
         }
     }, [router]);
+    *******/
 
     const logout = async (e: React.MouseEvent) => {
         e.preventDefault();
