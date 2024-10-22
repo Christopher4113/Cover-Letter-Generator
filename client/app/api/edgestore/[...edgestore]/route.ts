@@ -6,7 +6,6 @@ const es = initEdgeStore.create();
 
 const edgeStoreRouter = es.router({
     myPublicFiles: es.imageBucket(),
-
 });
 const handler = createEdgeStoreNextHandler({
     router: edgeStoreRouter,

@@ -130,4 +130,15 @@
   box-shadow: none;
   opacity: 80%;
 }
+.progress-bar {
+  height: 6px;
+  border: 1px solid #000; /* Adjust as necessary */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Ensure inner content stays within the progress bar */
+}
 
+.inner {
+  height: 100%; /* Fill the height of the progress-button */
+  background-color: white;
+  transition: all 0.15s ease; /* Smooth transition for any changes */
+}

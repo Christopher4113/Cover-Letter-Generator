@@ -11,6 +11,7 @@ import { url } from 'inspector';
 const ResumePage = () => {
     const [title, setTitle] = useState("");
     const [file, setFile] = useState<File | null>(null); // File type for file
+    const [progress, setProgress] = useState(0);
     const [urls,setUrls] = useState<{
         url: string,
         thumbnail: string | null;
@@ -51,7 +52,7 @@ const ResumePage = () => {
             console.log(error.message);
         }
     };
-
+    /**** 
     const submitImage = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!file) {
@@ -81,11 +82,18 @@ const ResumePage = () => {
             alert(`Upload failed: ${error.response?.data?.message || error.message}`);
         }
     };
+    ****/
     const uploadFile = async (e: React.FormEvent) => {
         try {
             e.preventDefault();
             if (file) {
-                const res = await edgestore.myPublicFiles.upload({file})
+                const res = await edgestore.myPublicFiles.upload({
+                    file,
+                    onProgressChange: (progress) => {
+                        setProgress(progress);
+                    }
+
+                })
                 setUrls({
                     url:res.url,
                     thumbnail: res.thumbnailUrl,
@@ -123,6 +131,14 @@ const ResumePage = () => {
                             }
                         }}
                     />
+                </div>
+                <div className='progress-bar'>
+                        <div
+                            className='inner'
+                            style={{
+                                width: `${progress}%`
+                            }}
+                        />
                 </div>
                 <button className='btn-primary' type='submit'>
                     Submit
