@@ -4,10 +4,18 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import axios from 'axios';
 import './resume.css';
+import { useEdgeStore } from '@/lib/edgestore';
+import { url } from 'inspector';
+
 
 const ResumePage = () => {
     const [title, setTitle] = useState("");
     const [file, setFile] = useState<File | null>(null); // File type for file
+    const [urls,setUrls] = useState<{
+        url: string,
+        thumbnail: string | null;
+    }>();
+    const {edgestore} = useEdgeStore();
     const router = useRouter();
 
     /****  Retrieve the token from cookies
@@ -73,10 +81,27 @@ const ResumePage = () => {
             alert(`Upload failed: ${error.response?.data?.message || error.message}`);
         }
     };
+    const uploadFile = async (e: React.FormEvent) => {
+        try {
+            e.preventDefault();
+            if (file) {
+                const res = await edgestore.myPublicFiles.upload({file})
+                setUrls({
+                    url:res.url,
+                    thumbnail: res.thumbnailUrl,
+                });
+                //save data to mongodb
+
+            }
+        } catch (error:any) {
+            console.log("Upload failed", error.response?.data || error.message);
+            alert(`Upload failed: ${error.response?.data?.message || error.message}`);
+        }
+    }
 
     return (
         <div className='background'>
-            <form className='formStyle' onSubmit={submitImage}>
+            <form className='formStyle' onSubmit={uploadFile}>
                 <h4>Upload Resume PDF only</h4><br />
                 <div className='inputContainer'>
                     <input
@@ -102,6 +127,8 @@ const ResumePage = () => {
                 <button className='btn-primary' type='submit'>
                     Submit
                 </button>
+                {urls?.url && <Link href={urls.url} target='_blank'>URL</Link>}
+                {urls?.thumbnail && <Link href={urls.thumbnail} target="_blank">Thumbnail</Link>}
             </form>
             <Link href="/profile" className='menu-button'>Menu</Link>
             <button onClick={logout} className="Logout">
