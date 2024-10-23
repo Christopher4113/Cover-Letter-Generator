@@ -12,10 +12,7 @@ const ResumePage = () => {
     const [title, setTitle] = useState("");
     const [file, setFile] = useState<File | null>(null); // File type for file
     const [progress, setProgress] = useState(0);
-    const [urls,setUrls] = useState<{
-        url: string,
-        thumbnail: string | null;
-    }>();
+    const [urls, setUrls] = useState<{ url: string }>({ url: '' });
     const {edgestore} = useEdgeStore();
     const router = useRouter();
 
@@ -94,10 +91,8 @@ const ResumePage = () => {
                     }
 
                 })
-                setUrls({
-                    url:res.url,
-                    thumbnail: res.thumbnailUrl,
-                });
+                setUrls({ url: res.url });
+                setProgress(0);
                 //save data to mongodb
 
             }
@@ -144,7 +139,6 @@ const ResumePage = () => {
                     Submit
                 </button>
                 {urls?.url && <Link href={urls.url} target='_blank'>URL</Link>}
-                {urls?.thumbnail && <Link href={urls.thumbnail} target="_blank">Thumbnail</Link>}
             </form>
             <Link href="/profile" className='menu-button'>Menu</Link>
             <button onClick={logout} className="Logout">
