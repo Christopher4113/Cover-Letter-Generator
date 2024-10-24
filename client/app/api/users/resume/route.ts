@@ -34,11 +34,10 @@ export async function POST(request: NextRequest) {
 
         const newFile = {
             title,
-            res
+            file: res
         }
         user.pdf.push(newFile)
         await user.save();
-
 
         console.log("Authenticated user: ",user)
 

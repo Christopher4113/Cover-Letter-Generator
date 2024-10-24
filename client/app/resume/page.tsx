@@ -64,9 +64,14 @@ const ResumePage = () => {
                   setProgress(progress);
                 },
               });
+
               // you can run some server action or api here
               // to add the necessary data to your database
-              await axios.post("/api/users/resume",title,res);
+              const fileUrl = res.url
+              await axios.post("/api/users/resume",{
+                title,
+                res: fileUrl,
+              });
 
               console.log(res);
               setUrls({url:res.url});
