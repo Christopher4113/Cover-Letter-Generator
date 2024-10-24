@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 import axios from 'axios';
 import './resume.css';
 import { useEdgeStore } from '@/lib/edgestore';
-import { url } from 'inspector';
 
 
 const ResumePage = () => {
     const [title, setTitle] = useState("");
     const [file, setFile] = useState<File | null>(null); // File type for file
     const [progress, setProgress] = useState(0);
-    const [urls, setUrls] = useState<{ url: string }>({ url: '' });
+    const [urls, setUrls] = useState<{
+        url: string,
+    }>();
     const {edgestore} = useEdgeStore();
     const router = useRouter();
 
@@ -49,57 +50,32 @@ const ResumePage = () => {
             console.log(error.message);
         }
     };
-    /**** 
-    const submitImage = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!file) {
-            console.log("No file selected.");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("file", file);
-
-        try {
-            const result = await axios.post("/api/users/resume", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-                withCredentials: true, // Ensure cookies (with token) are sent if needed
-            });
-
-            console.log(result.data);
-            setTitle("");
-            setFile(null);
-            alert("File uploaded successfully!");
-
-        } catch (error: any) {
-            console.log("Upload failed", error.response?.data || error.message);
-            alert(`Upload failed: ${error.response?.data?.message || error.message}`);
-        }
-    };
-    ****/
     const uploadFile = async (e: React.FormEvent) => {
         try {
             e.preventDefault();
+            setUrls(undefined);
             if (file) {
-                const res = await edgestore.myPublicFiles.upload({
-                    file,
-                    onProgressChange: (progress) => {
-                        setProgress(progress);
-                    }
-
-                })
-                setUrls({ url: res.url });
-                setProgress(0);
-                //save data to mongodb
+              const res = await edgestore.myPublicFiles.upload({
+                file,
+                onProgressChange: (progress) => {
+                  // you can use this to show a progress bar
+                  console.log(progress);
+                  setProgress(progress);
+                },
+              });
+              // you can run some server action or api here
+              // to add the necessary data to your database
+              console.log(res);
+              setUrls({url:res.url});
+              setProgress(0);
 
             }
         } catch (error:any) {
             console.log("Upload failed", error.response?.data || error.message);
             alert(`Upload failed: ${error.response?.data?.message || error.message}`);
         }
+        setFile(null)
+        setTitle("")
     }
 
     return (
@@ -140,6 +116,7 @@ const ResumePage = () => {
                 </button>
                 {urls?.url && <Link href={urls.url} target='_blank'>URL</Link>}
             </form>
+            
             <Link href="/profile" className='menu-button'>Menu</Link>
             <button onClick={logout} className="Logout">
                 Logout

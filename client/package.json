@@ -27,7 +27,8 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.10",
     "react-hot-toast": "^2.4.1",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
