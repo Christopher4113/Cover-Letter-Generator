@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 
 
 const PdfDetailsSchema = new mongoose.Schema({
-    pdf: String,
+    file: String,
     title: String
-},{collection:"Pdfdetails"})
+})
 
 const userSchema = new mongoose.Schema({
     username: {

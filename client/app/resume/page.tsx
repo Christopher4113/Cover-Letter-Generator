@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from 'axios';
 import './resume.css';
 import { useEdgeStore } from '@/lib/edgestore';
+import { url } from 'inspector';
 
 
 const ResumePage = () => {
@@ -65,6 +66,8 @@ const ResumePage = () => {
               });
               // you can run some server action or api here
               // to add the necessary data to your database
+              await axios.post("/api/users/resume",title,res);
+
               console.log(res);
               setUrls({url:res.url});
               setProgress(0);

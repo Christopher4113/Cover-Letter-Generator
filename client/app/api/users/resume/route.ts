@@ -30,12 +30,19 @@ export async function POST(request: NextRequest) {
         }
 
         const reqBody = await request.json()
-        const {title, file} = reqBody
+        const {title, res} = reqBody
+
+        const newFile = {
+            title,
+            res
+        }
+        user.pdf.push(newFile)
+        await user.save();
+
 
         console.log("Authenticated user: ",user)
 
         return NextResponse.json({ message: "File uploaded successfully", user: user._id });
-        
 
     } catch (error: any) {
         return NextResponse.json({error: error.message},
