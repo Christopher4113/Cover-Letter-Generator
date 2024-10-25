@@ -48,3 +48,42 @@ export async function POST(request: NextRequest) {
             {status: 500})
     }
 }
+
+export async function GET(request: NextRequest) {
+    try {
+        const user = await authenticateToken(request);
+        if (user instanceof NextResponse) {
+            return user;
+        }
+        NextResponse.json(user.pdf);
+    } catch (error: any) {
+        return NextResponse.json({error: error.message},
+            {status:500}
+        )
+    }
+}
+
+export async function DELETE(request: NextRequest) {
+    try {
+        const user = await authenticateToken(request);
+        if (user instanceof NextResponse) {
+            return user;
+        }
+        const reqBody = await request.json()
+        const {title} = reqBody;
+
+        const pdfIndex = user.pdf.findIndex((pdf: { title: string }) => pdf.title === title);
+        if (pdfIndex === -1) {
+            return NextResponse.json({ error: "PDF not found" }, { status: 404 });
+        }
+
+        // Remove the PDF from the array
+        user.pdf.splice(pdfIndex, 1);
+        await user.save(); // Save the updated user document
+
+    } catch (error: any) {
+        return NextResponse.json({error: error.message},
+            {status:500}
+        )
+    }
+}
