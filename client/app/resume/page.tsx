@@ -11,7 +11,6 @@ import { url } from 'inspector';
 const ResumePage = () => {
     const [title, setTitle] = useState("");
     const [file, setFile] = useState<File | null>(null); // File type for file
-    const [progress, setProgress] = useState(0);
     const [urls, setUrls] = useState<{
         url: string,
     }>();
@@ -58,11 +57,6 @@ const ResumePage = () => {
             if (file) {
               const res = await edgestore.myPublicFiles.upload({
                 file,
-                onProgressChange: (progress) => {
-                  // you can use this to show a progress bar
-                  console.log(progress);
-                  setProgress(progress);
-                },
               });
 
               // you can run some server action or api here
@@ -75,7 +69,6 @@ const ResumePage = () => {
 
               console.log(res);
               setUrls({url:res.url});
-              setProgress(0);
 
             }
         } catch (error:any) {
@@ -110,14 +103,6 @@ const ResumePage = () => {
                             }
                         }}
                     />
-                </div>
-                <div className='progress-bar'>
-                        <div
-                            className='inner'
-                            style={{
-                                width: `${progress}%`
-                            }}
-                        />
                 </div>
                 <button className='btn-primary' type='submit'>
                     Submit
