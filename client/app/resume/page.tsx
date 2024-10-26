@@ -5,8 +5,11 @@ import { useRouter } from "next/navigation";
 import axios from 'axios';
 import './resume.css';
 import { useEdgeStore } from '@/lib/edgestore';
-import { url } from 'inspector';
 
+interface PdfDetails {
+    title: String,
+    file: String
+}
 
 const ResumePage = () => {
     const [title, setTitle] = useState("");
@@ -14,6 +17,7 @@ const ResumePage = () => {
     const [urls, setUrls] = useState<{
         url: string,
     }>();
+    const [info, setInfo] = useState<PdfDetails[]>([]); // Set the type for info
     const {edgestore} = useEdgeStore();
     const router = useRouter();
 
@@ -78,6 +82,20 @@ const ResumePage = () => {
         setFile(null)
         setTitle("")
     }
+    useEffect(() => {
+        const fetchResumes = async () => {
+            try {
+                const response = await axios.get("/api/users/resume");
+                console.log("Resume data fetched:", response.data); // Check the response data here
+                setInfo(response.data);
+            } catch (error: any) {
+                console.error("Failed to fetch resume data:", error);
+            }
+        };
+    
+        fetchResumes();
+    }, []);
+
 
     return (
         <div className='background'>
@@ -114,6 +132,27 @@ const ResumePage = () => {
             <button onClick={logout} className="Logout">
                 Logout
             </button>
+            <div className='displayResume'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {info.map((pdf, index) => (
+                            <tr key={index}>
+                                <td>{pdf.title}</td>
+                                <td>
+                                    <Link href={`${pdf.file}`} target="_blank">URL</Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     );
 }

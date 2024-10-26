@@ -1,9 +1,8 @@
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest,NextResponse } from "next/server";
-import jwt from 'jsonwebtoken';  // Ensure JWT is imported
 import { getDataFromToken } from "@/helpers/getDataFromToken"; // Adjust the import path accordingly
-const SECRET_KEY = process.env.TOKEN_SECRET|| 'your-secret-key';  // Define the secret key
+
 
 
 connect()
@@ -55,7 +54,13 @@ export async function GET(request: NextRequest) {
         if (user instanceof NextResponse) {
             return user;
         }
-        NextResponse.json(user.pdf);
+        // Ensure only the necessary fields are sent to the frontend
+        const formattedResumes = user.pdf.map((pdf: { title: string; file: string }) => ({
+            title: pdf.title,
+            file: pdf.file,
+        }));
+
+        return NextResponse.json(formattedResumes);
     } catch (error: any) {
         return NextResponse.json({error: error.message},
             {status:500}

@@ -93,7 +93,7 @@
     color: black;
     border: 1px solid black;
     text-align: center;
-    margin-bottom: 5555px;
+    margin: 0; /* Remove margin to prevent space below the form */
 }
 
 .inputContainer {
@@ -130,15 +130,26 @@
   box-shadow: none;
   opacity: 80%;
 }
-.progress-bar {
-  height: 6px;
-  border: 1px solid #000; /* Adjust as necessary */
-  border-radius: 8px; /* Rounded corners */
-  overflow: hidden; /* Ensure inner content stays within the progress bar */
+.displayResume {
+  padding-top: 20px; /* Space above the table for clarity */
+  width: 100%; /* Ensure it takes full width of its container */
 }
 
-.inner {
-  height: 100%; /* Fill the height of the progress-button */
-  background-color: white;
-  transition: all 0.15s ease; /* Smooth transition for any changes */
+.displayResume table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.displayResume th, .displayResume td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.displayResume th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.displayResume tr:hover {
+  background-color: #f1f1f1;
 }
