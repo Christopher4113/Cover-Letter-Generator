@@ -95,6 +95,14 @@ const ResumePage = () => {
     
         fetchResumes();
     }, []);
+    const handleDelete = async (e:React.FormEvent) => {
+        try {
+            e.preventDefault();
+        } catch (error: any) {
+            console.log("Delete failed", error.response?.data || error.message);
+            alert(`Delete failed: ${error.response?.data?.message || error.message}`);
+        }
+    }
 
 
     return (
@@ -132,12 +140,13 @@ const ResumePage = () => {
             <button onClick={logout} className="Logout">
                 Logout
             </button>
-            <div className='displayResume'>
-                <table>
-                    <thead>
+            <div className="displayResume mt-4">
+                <table className="table table-bordered rounded">
+                    <thead className="thead-dark">
                         <tr>
                             <th>Title</th>
                             <th>File</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -147,11 +156,15 @@ const ResumePage = () => {
                                 <td>
                                     <Link href={`${pdf.file}`} target="_blank">URL</Link>
                                 </td>
+                                <td>
+                                    <button className='delete' onClick={handleDelete}>Delete</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+
 
         </div>
     );

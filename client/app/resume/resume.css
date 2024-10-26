@@ -131,25 +131,53 @@
   opacity: 80%;
 }
 .displayResume {
-  padding-top: 20px; /* Space above the table for clarity */
-  width: 100%; /* Ensure it takes full width of its container */
+  width: 80%; /* Set the width similar to the first table */
+  max-width: 1000px; /* Ensure max width matches */
+  margin: auto; /* Center the table */
+  background: rgba(255, 255, 255, 0.8); /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  padding: 20px; /* Padding around the table */
+  overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
 }
 
 .displayResume table {
   width: 100%;
-  border-collapse: collapse;
+  table-layout: auto; /* Adjusts table width based on content */
+  border-collapse: collapse; /* Merge borders */
 }
 
 .displayResume th, .displayResume td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  padding: 8px; /* Space inside table cells */
+  text-align: center; /* Align text to the left */
+  border: 1px solid #ddd; /* Cell border */
+  color: black;
 }
 
 .displayResume th {
-  background-color: #f2f2f2;
-  text-align: left;
+  background-color: #343a40; /* Header background */
+  color: white; /* Header text color */
 }
 
 .displayResume tr:hover {
-  background-color: #f1f1f1;
+  background-color: #f1f1f1; /* Highlight row on hover */
+}
+
+/* Button styles */
+.delete {
+  padding: 5px 15px; /* Adjust padding */
+  border-radius: 5px; /* Rounded corners */
+  border: 0; /* Remove border */
+  background-color: rgb(255, 56, 86); /* Button background */
+  color: white; /* Button text color */
+  cursor: pointer; /* Pointer on hover */
+  transition: all 0.3s ease; /* Transition for hover effects */
+}
+
+.delete:hover {
+  background-color: rgb(220, 40, 70); /* Darken on hover */
+}
+
+.delete:active {
+  transform: translateY(2px); /* Slight move on click */
 }
