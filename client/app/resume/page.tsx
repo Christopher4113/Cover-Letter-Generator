@@ -7,8 +7,8 @@ import './resume.css';
 import { useEdgeStore } from '@/lib/edgestore';
 
 interface PdfDetails {
-    title: String,
-    file: String
+    title: string,
+    file: string
 }
 
 const ResumePage = () => {
@@ -95,14 +95,23 @@ const ResumePage = () => {
     
         fetchResumes();
     }, []);
-    const handleDelete = async (e:React.FormEvent) => {
+    const handleDelete = async (e: React.FormEvent, title: string, fileUrl: string) => {
         try {
             e.preventDefault();
+            // Make a DELETE request to your API with the title of the PDF to delete
+            await edgestore.myPublicFiles.delete({url: fileUrl})
+            const response = await axios.delete("/api/users/resume", {
+                data: { title }, // Pass the title in the request body
+            });
+
+            // Optionally, update the local state to remove the deleted PDF
+            setInfo((prevInfo) => prevInfo.filter((pdf) => pdf.title !== title));
+            console.log("Delete successful:", response.data.message);
         } catch (error: any) {
             console.log("Delete failed", error.response?.data || error.message);
             alert(`Delete failed: ${error.response?.data?.message || error.message}`);
         }
-    }
+    };
 
 
     return (
@@ -133,7 +142,6 @@ const ResumePage = () => {
                 <button className='btn-primary' type='submit'>
                     Submit
                 </button>
-                {urls?.url && <Link href={urls.url} target='_blank'>URL</Link>}
             </form>
             
             <Link href="/profile" className='menu-button'>Menu</Link>
@@ -157,7 +165,7 @@ const ResumePage = () => {
                                     <Link href={`${pdf.file}`} target="_blank">URL</Link>
                                 </td>
                                 <td>
-                                    <button className='delete' onClick={handleDelete}>Delete</button>
+                                    <button className='delete' onClick={(e) => handleDelete(e,pdf.title, pdf.file)}>Delete</button>
                                 </td>
                             </tr>
                         ))}
