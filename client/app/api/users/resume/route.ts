@@ -85,6 +85,7 @@ export async function DELETE(request: NextRequest) {
         // Remove the PDF from the array
         user.pdf.splice(pdfIndex, 1);
         await user.save(); // Save the updated user document
+        return NextResponse.json({ message: "PDF deleted successfully" }, { status: 200 });
 
     } catch (error: any) {
         return NextResponse.json({error: error.message},

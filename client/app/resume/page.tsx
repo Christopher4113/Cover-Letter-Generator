@@ -99,7 +99,9 @@ const ResumePage = () => {
         try {
             e.preventDefault();
             // Make a DELETE request to your API with the title of the PDF to delete
-            await edgestore.myPublicFiles.delete({url: fileUrl})
+            await edgestore.myPublicFiles.delete({
+                url: fileUrl,
+              });
             const response = await axios.delete("/api/users/resume", {
                 data: { title }, // Pass the title in the request body
             });
