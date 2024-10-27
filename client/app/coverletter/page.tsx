@@ -23,7 +23,14 @@ const CoverLetterPage = () => {
     }
   };
   useEffect(() => {
-
+    const fetchResumes = async () => {
+      try {
+        const response = await axios.get("/api/users/resume");
+        console.log("Resume data fetched: ", response.data)
+      } catch (error:any) {
+        console.error("Failed to fetch resume data: ", error);
+      }
+    }
   },[])
 
   return (
