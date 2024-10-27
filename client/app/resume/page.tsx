@@ -21,30 +21,6 @@ const ResumePage = () => {
     const {edgestore} = useEdgeStore();
     const router = useRouter();
 
-    /****  Retrieve the token from cookies
-    const getTokenFromCookies = () => {
-        const cookieName = "token=";
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const cookieArray = decodedCookie.split(';');
-        
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i].trim();
-            if (cookie.indexOf(cookieName) === 0) {
-                return cookie.substring(cookieName.length, cookie.length);
-            }
-        }
-        return null;
-    };
-
-    useEffect(() => {
-        const token = getTokenFromCookies();
-        if (!token) {
-            // If no token, redirect to login
-            router.push("/login");
-        }
-    }, [router]);
-    *******/
-
     const logout = async (e: React.MouseEvent) => {
         e.preventDefault();
         try {
@@ -73,6 +49,8 @@ const ResumePage = () => {
 
               console.log(res);
               setUrls({url:res.url});
+
+              router.refresh();
 
             }
         } catch (error:any) {

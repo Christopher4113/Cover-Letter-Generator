@@ -76,3 +76,35 @@
       box-shadow: 0 0 0 0 rgba(218, 03, 8,  0);
     }
   }
+  .displayResume2 {
+    width: 80%; /* Set the width similar to the first table */
+    max-width: 1000px; /* Ensure max width matches */
+    margin: auto; /* Center the table */
+    background: rgba(255, 255, 255, 0.8); /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    padding: 20px; /* Padding around the table */
+    overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
+  }
+  
+  .displayResume2 table {
+    width: 100%;
+    table-layout: auto; /* Adjusts table width based on content */
+    border-collapse: collapse; /* Merge borders */
+  }
+  
+  .displayResume2 th, .displayResume2 td {
+    padding: 8px; /* Space inside table cells */
+    text-align: center; /* Align text to the left */
+    border: 1px solid #ddd; /* Cell border */
+    color: black;
+  }
+  
+  .displayResume2 th {
+    background-color: #343a40; /* Header background */
+    color: white; /* Header text color */
+  }
+  
+  .displayResume2 tr:hover {
+    background-color: #f1f1f1; /* Highlight row on hover */
+  }
