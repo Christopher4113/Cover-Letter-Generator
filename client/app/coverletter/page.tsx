@@ -81,7 +81,7 @@ const CoverLetterPage = () => {
           </div>
           <div className='createCV'>
             <form className="formStyling"onSubmit={handleSubmit}>
-                <h4>Select a Resume and input Job Description</h4>
+                <h4>Select a Resume and Input Job Description</h4>
                 <label htmlFor="resumeSelect">Select Resume:</label>
                 <select
                   id="resumeSelect"
