@@ -11,7 +11,8 @@ interface PdfDetails {
 const CoverLetterPage = () => {
   const router = useRouter();
   const [info, setInfo] = useState<PdfDetails[]>([]); // Define info state with PdfDetails type
-
+  const [selectedResume, setSelectedResume] = useState<string>('');
+  const [jobDescription, setJobDescription] = useState<string>('');
 
   const logout = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -34,6 +35,22 @@ const CoverLetterPage = () => {
     };
     fetchResumes();
   }, []);
+
+  const handleSubmit = async() => {
+    try {
+      const response = await axios.post("/api/users/coverletter", {
+        resume: selectedResume,
+        jobDescription
+      });
+      console.log("Cover letter generated: ", response.data);
+      alert("Cover letter generated successfully!"); 
+    } catch (error: any) {
+      console.log("Delete failed", error.response?.data || error.message);
+      alert(`Delete failed: ${error.response?.data?.message || error.message}`);
+    }
+    setSelectedResume('');
+    setJobDescription('');
+  }
 
   return (
     <div className='coverBackground'>
@@ -61,6 +78,36 @@ const CoverLetterPage = () => {
                         ))}
                     </tbody>
                 </table>
+          </div>
+          <div className='createCV'>
+            <form className="formStyling"onSubmit={handleSubmit}>
+                <h4>Select a Resume and input Job Description</h4>
+                <label htmlFor="resumeSelect">Select Resume:</label>
+                <select
+                  id="resumeSelect"
+                  value={selectedResume}
+                  onChange={(e) => setSelectedResume(e.target.value)}
+                  required
+                >
+                  <option value="" disabled>Select a resume</option>
+                  {info.map((pdf, index) => (
+                    <option key={index} value={pdf.file}>{pdf.title}</option>
+                  ))}
+                </select>
+
+                <label htmlFor="jobDescription">Job Description:</label>
+                <textarea
+                  id="jobDescription"
+                  rows={5}
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
+                  required
+                />
+
+                <button type="submit" className="generateButton">
+                  Generate Cover Letter
+                </button>
+            </form>
           </div>
 
 
