@@ -38,7 +38,7 @@ const CoverLetterPage = () => {
 
   const handleSubmit = async() => {
     try {
-      const response = await axios.post("/api/users/coverletter", {
+      const response = await axios.post("http://localhost:8000/ask", {
         resume: selectedResume,
         jobDescription
       });
