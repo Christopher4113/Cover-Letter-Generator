@@ -1,31 +1,35 @@
+from dotenv import load_dotenv
 from groq import Groq
 import os
-client = Groq(
-    api_key = os.getenv("GROQ_API_KEY")
+
+# Load environment variables from .env file
+load_dotenv()
+GROQ_API_KEY = os.getenv('GROQ_API_KEY')
+
+# Initialize the Groq client
+client = Groq(api_key=GROQ_API_KEY)
+
+# Prepare the messages for the chat completion
+messages = [
+    {
+        "role": "system",
+        "content": "from a resume and job description create me a cover letter"
+    },
+    {
+        "role": "user",
+        "content": "Please provide your resume and job description here."  # Update to prompt for input
+    }
+]
+
+# Create the chat completion
+chat_completion = client.chat.completions.create(
+    messages=messages,
+    model="llama3-8b-8192",
 )
-completion = client.chat.completions.create(
-    model="llama3-70b-8192",
-    messages=[
-        {
-            "role": "system",
-            "content": "from a resume and a job description create me a cover letter that is ats friendly"
-        },
-        {
-            "role": "user",
-            "content": ""
-        },
-        {
-            "role": "assistant",
-            "content": "Please provide the resume and job description, and I'll create a cover letter that is ATS-friendly.\n\n**Resume:**\n(Please paste the resume text or provide a brief summary of the candidate's work experience, skills, and achievements)\n\n**Job Description:**\n(Please paste the job description text or provide the job title, main responsibilities, and required skills)\n\nOnce I have this information, I'll create a cover letter that incorporates relevant keywords from the job description and highlights the candidate's matching skills and experiences. This will increase the chances of the cover letter passing through Applicant Tracking Systems (ATS) and catching the eye of the hiring manager."
-        }
-    ],
-    temperature=1,
-    max_tokens=1024,
-    top_p=1,
-    stream=False,
-    stop=None,
-)
 
-print(completion.choices[0].message['content'])
-
-
+# Print the response content
+if chat_completion.choices:
+    for choice in chat_completion.choices:
+        print(choice.message.content)  # Access the content directly
+else:
+    print("No choices returned.")
