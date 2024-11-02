@@ -2,12 +2,19 @@ from dotenv import load_dotenv
 from groq import Groq
 import os
 
+
+
+
+
+
 # Load environment variables from .env file
 load_dotenv()
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 
 # Initialize the Groq client
 client = Groq(api_key=GROQ_API_KEY)
+
+cover_letter_templates = []
 
 # Prepare the messages for the chat completion
 messages = [
