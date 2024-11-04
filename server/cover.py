@@ -1,6 +1,9 @@
 from dotenv import load_dotenv
 from groq import Groq
 import os
+import fitz  # PyMuPDF
+
+
 
 
 
@@ -15,6 +18,21 @@ GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 client = Groq(api_key=GROQ_API_KEY)
 
 cover_letter_templates = []
+# Directory containing the PDF templates
+templates_dir = "templates"
+for filename in os.listdir(templates_dir):
+    if filename.endswith(".pdf"):
+        filepath = os.path.join(templates_dir, filename)
+        pdf_content = ""
+
+        # Open the PDF and extract text
+        with fitz.open(filepath) as pdf:
+            for page_num in range(pdf.page_count):
+                page = pdf[page_num]
+                pdf_content += page.get_text()  # Extract text from each page
+
+        cover_letter_templates.append({"filename": filename, "content": pdf_content})
+
 
 # Prepare the messages for the chat completion
 messages = [
