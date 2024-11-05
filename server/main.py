@@ -57,7 +57,7 @@ async def generate_cover_letters(
     generated_cover_letters = []
     for template in cover_letter_templates:
         messages = [
-            {"role": "system", "content": "from a resume and job description create a cover letter"},
+            {"role": "system", "content": "from a resume and job description create a the cover letter and follow the following templates to create a personalize cover letter only the information you can find from the resume/job description so that it can be "},
             {"role": "user", "content": f"Template: {template['content']}\nResume: {resume_content}\nJob Description: {jobDescription}"}
         ]
         
