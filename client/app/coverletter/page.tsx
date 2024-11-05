@@ -13,6 +13,9 @@ const CoverLetterPage = () => {
   const [info, setInfo] = useState<PdfDetails[]>([]); // Define info state with PdfDetails type
   const [selectedResume, setSelectedResume] = useState<string>('');
   const [jobDescription, setJobDescription] = useState<string>('');
+  const [today,setToday] = useState<string>('');
+  const [company, setCompany] = useState<string>('');
+  const [location, setLocation] = useState<string>('');
 
   const logout = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -38,9 +41,12 @@ const CoverLetterPage = () => {
 
   const handleSubmit = async() => {
     try {
-      const response = await axios.post("http://localhost:8000/ask", {
+      const response = await axios.post("http://localhost:8000/generate_cover_letters", {
         resume: selectedResume,
-        jobDescription
+        jobDescription,
+        today,
+        company,
+        location
       });
       console.log("Cover letter generated: ", response.data);
       alert("Cover letter generated successfully!"); 
@@ -50,6 +56,9 @@ const CoverLetterPage = () => {
     }
     setSelectedResume('');
     setJobDescription('');
+    setToday('');
+    setCompany('');
+    setLocation('');
   }
 
   return (
@@ -79,9 +88,11 @@ const CoverLetterPage = () => {
                     </tbody>
                 </table>
           </div>
+          <br/>
+          <br/>
           <div className='createCV'>
             <form className="formStyling"onSubmit={handleSubmit}>
-                <h4>Select a Resume and Input Job Description</h4>
+                <h4>Please Fill Out Form</h4>
                 <label htmlFor="resumeSelect">Select Resume:</label>
                 <select
                   id="resumeSelect"
@@ -103,7 +114,13 @@ const CoverLetterPage = () => {
                   onChange={(e) => setJobDescription(e.target.value)}
                   required
                 />
-
+                <label htmlFor="today">Today's Date</label>
+                <input id='today' value={today} onChange={(e) => setToday(e.target.value)} required placeholder='Enter date'></input>
+                <label htmlFor="company">Company Name</label>
+                <input id='company' value={company} onChange={(e) => setCompany(e.target.value)} required placeholder='Enter Company'></input>
+                <label htmlFor="location">Job Location</label>
+                <input id='location' value={location} onChange={(e) => setLocation(e.target.value)} required placeholder='Enter Location'></input>
+                
                 <button type="submit" className="generateButton">
                   Generate Cover Letter
                 </button>

@@ -38,7 +38,11 @@ class CoverLetter(BaseModel):
 @app.post("/generate_cover_letters", response_model=List[CoverLetter])
 async def generate_cover_letters(
     jobDescription: str = Form(...),
+    today: str = Form(...),
+    company: str = Form(...),
+    location: str = Form(...),
     file: UploadFile = File(...)
+
 ):
     # Check if the file is a PDF
     if file.content_type != "application/pdf":
@@ -57,8 +61,8 @@ async def generate_cover_letters(
     generated_cover_letters = []
     for template in cover_letter_templates:
         messages = [
-            {"role": "system", "content": "from a resume and job description create a the cover letter and follow the following templates to create a personalize cover letter only the information you can find from the resume/job description so that it can be "},
-            {"role": "user", "content": f"Template: {template['content']}\nResume: {resume_content}\nJob Description: {jobDescription}"}
+            {"role": "system", "content": "from a resume and job description, date, company and job location, create a the cover letter and follow the following templates to create a personalize cover letter only the information you can find from the resume/job description so that it can be "},
+            {"role": "user", "content": f"Template: {template['content']}\nResume: {resume_content}\nJob Description: {jobDescription}\n date: {today}\n company: {company}\nJob Location: {location}"}
         ]
         
         # Create chat completion

@@ -138,7 +138,7 @@
     margin: 10px 0 5px; /* Add space between label and input */
 }
 
-.formStyling select, .formStyling textarea {
+.formStyling select, .formStyling textarea, .formStyling input{
     width: 100%;
     margin: 10px 0; /* Add space between inputs */
     padding: 10px;
