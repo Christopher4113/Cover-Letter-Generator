@@ -4,6 +4,13 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import axios from 'axios';
+
+
+interface CoverLetter {
+  filename: string;
+  content: string;
+}
+
 interface PdfDetails {
   title: string,
   file: string
@@ -16,6 +23,8 @@ const CoverLetterPage = () => {
   const [today,setToday] = useState<string>('');
   const [company, setCompany] = useState<string>('');
   const [location, setLocation] = useState<string>('');
+  const [coverLetters, setCoverLetters] = useState<CoverLetter[]>([]);
+
 
   const logout = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -49,10 +58,11 @@ const CoverLetterPage = () => {
         location
       });
       console.log("Cover letter generated: ", response.data);
+      setCoverLetters(response.data)
       alert("Cover letter generated successfully!"); 
     } catch (error: any) {
-      console.log("Delete failed", error.response?.data || error.message);
-      alert(`Delete failed: ${error.response?.data?.message || error.message}`);
+      console.log("Generation failed", error.response?.data || error.message);
+      alert(`Generation failed: ${error.response?.data?.message || error.message}`);
     }
     setSelectedResume('');
     setJobDescription('');
@@ -125,6 +135,22 @@ const CoverLetterPage = () => {
                   Generate Cover Letter
                 </button>
             </form>
+
+
+             {/* Display generated cover letters */}
+            <div>
+              {coverLetters.length > 0 && (
+                <div>
+                  <h2>Generated Cover Letters</h2>
+                  {coverLetters.map((letter, index) => (
+                    <div key={index}>
+                      <h3>{letter.filename}</h3>
+                      <p>{letter.content}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
 

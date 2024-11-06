@@ -5,6 +5,7 @@ import os
 import fitz  # PyMuPDF
 from dotenv import load_dotenv
 from groq import Groq
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables
 load_dotenv()
@@ -14,6 +15,13 @@ GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 client = Groq(api_key=GROQ_API_KEY)
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Update to match the origin of your frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Load the cover letter templates
 cover_letter_templates = []
@@ -83,6 +91,7 @@ async def generate_cover_letters(
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error generating cover letter: {e}")
 
+    print(generate_cover_letters)
     return generated_cover_letters
 
 if __name__ == "__main__":
