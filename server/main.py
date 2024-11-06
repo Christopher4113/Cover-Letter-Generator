@@ -42,17 +42,23 @@ for filename in os.listdir(templates_dir):
 class CoverLetter(BaseModel):
     filename: str
     content: str
+# Pydantic model for request and response
+class CoverLetterRequest(BaseModel):
+    resume: UploadFile  
+    jobDescription: str
+    today: str
+    company: str
+    location: str
+
 
 
 @app.post("/generate_cover_letters", response_model=List[CoverLetter])
-async def generate_cover_letters(
-    jobDescription: str = Form(...),
-    today: str = Form(...),
-    company: str = Form(...),
-    location: str = Form(...),
-    file: UploadFile = File(...)
-
-):
+async def generate_cover_letters(request: CoverLetterRequest):
+    file = request.resume
+    jobDescription = request.jobDescription
+    today = request.today
+    company = request.company
+    location = request.location
     # Check if the file is a PDF
     if file.content_type != "application/pdf":
         raise HTTPException(status_code=400, detail="Invalid file type. Only PDFs are allowed.")
