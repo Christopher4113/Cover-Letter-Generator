@@ -43,22 +43,24 @@ class CoverLetter(BaseModel):
     filename: str
     content: str
 
+
 @app.post("/generate_cover_letters", response_model=List[CoverLetter])
 async def generate_cover_letters(
+    resume: UploadFile = File(...),  # Accept file using File()
     jobDescription: str = Form(...),
     today: str = Form(...),
     company: str = Form(...),
-    location: str = Form(...),
-    file: UploadFile = File(...)
+    location: str = Form(...)
 ):
+    
     # Check if the file is a PDF
-    if file.content_type != "application/pdf":
+    if resume.content_type != "application/pdf":
         raise HTTPException(status_code=400, detail="Invalid file type. Only PDFs are allowed.")
 
     # Read the PDF content
     resume_content = ""
     try:
-        with fitz.open(stream=await file.read(), filetype="pdf") as pdf:
+        with fitz.open(stream=await resume.read(), filetype="pdf") as pdf:
             for page in pdf:
                 resume_content += page.get_text()
     except Exception as e:
