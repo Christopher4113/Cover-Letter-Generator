@@ -1,7 +1,7 @@
 "use client"
 import './cover.css';
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useRouter } from "next/navigation";
 import axios from 'axios';
 
@@ -48,14 +48,20 @@ const CoverLetterPage = () => {
     fetchResumes();
   }, []);
 
-  const handleSubmit = async() => {
+  const handleSubmit = async(e: React.FormEvent) => {
     try {
-      const response = await axios.post("http://localhost:8000/generate_cover_letters", {
-        resume: selectedResume,
-        jobDescription,
-        today,
-        company,
-        location
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("file", selectedResume); // Ensure resumeFile is the file object, not a string
+      formData.append("jobDescription", jobDescription);
+      formData.append("today", today);
+      formData.append("company", company);
+      formData.append("location", location);
+      console.log("Form Data:", formData);
+      const response = await axios.post("http://localhost:8000/generate_cover_letters", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Ensure the correct content type
+        }
       });
       console.log("Cover letter generated: ", response.data);
       setCoverLetters(response.data)
