@@ -98,6 +98,14 @@ const CoverLetterPage = () => {
     setCompany('');
     setLocation('');
   }
+  const resetPage = () => {
+    setCoverLetters([]);
+    setSelectedResume(null);
+    setJobDescription('');
+    setToday('');
+    setCompany('');
+    setLocation('');
+  };
   const handleContentChange = (index: number, newContent: string) => {
     const updatedLetters = [...coverLetters];
     updatedLetters[index].content = newContent;
@@ -124,11 +132,16 @@ const CoverLetterPage = () => {
     `;
   
     const options = {
-      margin: [0.5, 0.5, 0.5,0], // Top, left, bottom, right (in inches)
+      margin: [0.5, 0.5, 0.5, 0], // Top, left, bottom, right (in inches)
       filename: `${letter.filename}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
+      html2canvas: { 
+        scale: 2, 
+        useCORS: true, // Helps with cross-origin issues
+        letterRendering: true // Improves text rendering quality
+      },
       jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'] } // Handles page breaks correctly
     };
   
     html2pdf().set(options).from(element).save();
@@ -217,6 +230,10 @@ const CoverLetterPage = () => {
           </div>
         )}
       </div>
+
+      {coverLetters.length > 0 && (
+        <button onClick={resetPage} className='reset'>Make New Cover Letter</button>
+      )}
 
     </div>
   )
