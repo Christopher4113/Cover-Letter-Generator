@@ -174,17 +174,34 @@
   padding: 20px;
   border: 1px solid #ccc;
   background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Ensure the button aligns with the content */
 }
 .coverLetter h3 {
   color: black;
 }
 
-.coverLetterContent pre {
-  white-space: pre-wrap;
+.coverLetterContent {
+  width: 100%;  /* Ensure the text area takes up the full width of the container */
+  height: 400px;  /* Make the height larger so you can see more content */
   font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;  /* Increase font size for better readability */
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 20px;
+  background: #f9f9f9;
+  overflow-y: auto;  /* Allow vertical scrolling if content overflows */
+  border-radius: 8px; /* Optional: for rounded corners */
+  resize: vertical;  /* Allow vertical resizing of the text area */
+}
+
+.coverLetterContent pre {
+  white-space: pre-wrap;  /* Allow the text to wrap for better visibility */
   line-height: 1.6;
   font-size: 16px;
   color: #333;
+  margin: 0;
 }
 
 .coverLetterContent h3 {
@@ -197,10 +214,38 @@
 .coverLetterContent p {
   margin: 5px 0;
 }
+
 .generation {
   text-align: center;
   justify-content: center;
   color: #333;
   font-weight: bold;
 }
+.downloadButton {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(140.14deg, #4CAF50 15.05%, #388E3C 114.99%);
+  border: 2px solid transparent;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
 
+.downloadButton:hover {
+  opacity: 0.9;
+}
+
+.box {
+  width: 90%;           /* Set the container width to 90% of the screen */
+  max-width: 1200px;    /* Set a max-width for larger screens */
+  margin: 0 auto;       /* Center the container */
+  padding: 20px;        /* Add padding around the content */
+  background-color: #ffffff;  /* Optional: Background color for better readability */
+  border-radius: 8px;   /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+}

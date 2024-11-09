@@ -98,6 +98,41 @@ const CoverLetterPage = () => {
     setCompany('');
     setLocation('');
   }
+  const handleContentChange = (index: number, newContent: string) => {
+    const updatedLetters = [...coverLetters];
+    updatedLetters[index].content = newContent;
+    setCoverLetters(updatedLetters);
+  };
+
+  const downloadPDF = (index: number) => {
+    const letter = coverLetters[index];
+    const element = document.createElement('div');
+  
+    // Add inline CSS for better formatting
+    element.innerHTML = `
+      <div style="
+        font-family: Arial, sans-serif;
+        font-size: 10.5pt;
+        margin: 20px;
+        line-height: 1.6;
+        width: 80%;
+        max-width: 600px;
+        text-align: left;
+      ">
+        <p>${letter.content.replace(/\n/g, "<br>")}</p>
+      </div>
+    `;
+  
+    const options = {
+      margin: [0.5, 0.5, 0.5,0], // Top, left, bottom, right (in inches)
+      filename: `${letter.filename}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+    };
+  
+    html2pdf().set(options).from(element).save();
+  };
 
   return (
     <div className='coverBackground'>
@@ -164,21 +199,25 @@ const CoverLetterPage = () => {
         </form>
       </div>
       <br/>
-       {/* Display generated cover letters */}
-       <div>
+
+      <div className='box'>
         {coverLetters.length > 0 && (
           <div>
             <h1 className='generation'>Generated Cover Letters</h1>
             {coverLetters.map((letter, index) => (
               <div key={index} className="coverLetter">
-                <div className="coverLetterContent">
-                  <pre>{letter.content}</pre>
-                </div>
+                <textarea
+                  className="coverLetterContent"
+                  value={letter.content}
+                  onChange={(e) => handleContentChange(index, e.target.value)}
+                />
+                <button onClick={() => downloadPDF(index)} className="downloadButton">Download as PDF</button>
               </div>
             ))}
           </div>
         )}
       </div>
+
     </div>
   )
 }
