@@ -73,7 +73,19 @@ const CoverLetterPage = () => {
         }
       });
       console.log("Cover letter generated: ", response.data);
-      setCoverLetters(response.data);
+      const generatedLetters = response.data.map((letter: CoverLetter) => {
+        // Remove the first line
+        const contentWithoutIntro = letter.content.replace(
+          /^(Here is|This is|Based on).*:\s*/,
+          ''
+        );
+        return {
+          ...letter,
+          content: contentWithoutIntro,
+        };
+      });
+
+      setCoverLetters(generatedLetters);
       alert("Cover letter generated successfully!"); 
     } catch (error: any) {
       console.log("Generation failed", error.response?.data || error.message);
@@ -149,21 +161,22 @@ const CoverLetterPage = () => {
             Generate Cover Letter
           </button>
         </form>
-
-        {/* Display generated cover letters */}
-        <div>
-          {coverLetters.length > 0 && (
-            <div>
-              <h2>Generated Cover Letters</h2>
-              {coverLetters.map((letter, index) => (
-                <div key={index}>
-                  <h3>{letter.filename}</h3>
-                  <p>{letter.content}</p>
+      </div>
+      <br/>
+       {/* Display generated cover letters */}
+       <div>
+        {coverLetters.length > 0 && (
+          <div>
+            <h1 className='generation'>Generated Cover Letters</h1>
+            {coverLetters.map((letter, index) => (
+              <div key={index} className="coverLetter">
+                <div className="coverLetterContent">
+                  <pre>{letter.content}</pre>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

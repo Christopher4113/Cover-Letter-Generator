@@ -169,3 +169,38 @@
     opacity: 80%;
 }
 
+.coverLetter {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+.coverLetter h3 {
+  color: black;
+}
+
+.coverLetterContent pre {
+  white-space: pre-wrap;
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.6;
+  font-size: 16px;
+  color: #333;
+}
+
+.coverLetterContent h3 {
+  text-align: left;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.coverLetterContent p {
+  margin: 5px 0;
+}
+.generation {
+  text-align: center;
+  justify-content: center;
+  color: #333;
+  font-weight: bold;
+}
+
