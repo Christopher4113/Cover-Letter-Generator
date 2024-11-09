@@ -42,6 +42,10 @@ const CoverLetterPage = () => {
         const response = await axios.get("/api/users/resume");
         console.log("Resume data fetched: ", response.data);
         setInfo(response.data);
+        //default to first resume
+        if (response.data.length > 0) {
+          setSelectedResume(response.data[0]);
+        }
       } catch (error: any) {
         console.error("Failed to fetch resume data: ", error);
       }
@@ -183,6 +187,7 @@ const CoverLetterPage = () => {
           <select
             id="resumeSelect"
             onChange={(e) => setSelectedResume(info.find(pdf => pdf.file === e.target.value) || null)} // Set selectedResume to PdfDetails object
+            value={selectedResume?.file || ""}
             required
           >
             <option value="" disabled>Select a resume</option>
