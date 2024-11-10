@@ -153,8 +153,8 @@ const CoverLetterPage = () => {
 
   return (
     <div className='coverBackground'>
-      <Link href="/profile" className='menu-button'>Menu</Link>
-      <button onClick={logout} className="Logout">
+      <Link href="/profile" className='menu-button1'>Menu</Link>
+      <button onClick={logout} className="Logout1">
         Logout
       </button>
 
@@ -217,7 +217,13 @@ const CoverLetterPage = () => {
         </form>
       </div>
       <br/>
-
+      {coverLetters.length > 0 && (
+        <button onClick={resetPage} className='reset'>Make New Cover Letter</button>
+      )}
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <div className='box'>
         {coverLetters.length > 0 && (
           <div>
@@ -236,10 +242,12 @@ const CoverLetterPage = () => {
         )}
       </div>
 
-      {coverLetters.length > 0 && (
-        <button onClick={resetPage} className='reset'>Make New Cover Letter</button>
-      )}
-
+      <br/>
+      
+      
+      
+      
+      
     </div>
   )
 }
