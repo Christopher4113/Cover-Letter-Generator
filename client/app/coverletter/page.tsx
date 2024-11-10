@@ -5,6 +5,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import axios from 'axios';
 import html2pdf from 'html2pdf.js';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface CoverLetter {
   filename: string;
