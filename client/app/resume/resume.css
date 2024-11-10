@@ -203,3 +203,61 @@
   transform: translate(0.05em, 0.05em);
   box-shadow: 0.05em 0.05em;
 }
+
+@media screen and (max-width: 946px) {
+  .formStyle {
+    width: 50%; /* Make the form take 90% of the viewport width */
+    padding: 20px; /* Reduce padding */
+    font-size: 0.9em; /* Optionally, reduce font size */
+  }
+}
+@media screen and (max-width: 663px) {
+  .formStyle {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 544px) {
+  .formStyle {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 464px) {
+  .formStyle {
+    width: 30%;
+  }
+  .btn-primary {
+    padding: 8px 30px; /* Reduce padding */
+    font-size: 16px; /* Slightly reduce font size */
+  }
+  .Logout {
+    padding: 8px 30px;
+    font-size: 16px;
+  }
+  .form-control[type="text"] {
+    font-size: 14px; /* Reduce font size for Title input */
+    padding: 6px; /* Adjust padding to make it smaller */
+  }
+
+  .form-control[type="file"] {
+    font-size: 14px; /* Reduce font size for Choose File input */
+    padding: 6px; /* Adjust padding */
+  }
+}
+@media screen and (max-width: 389px) {
+  .Logout {
+    padding: 6px 20px;
+    font-size: 12px;
+  }
+  .menu-button {
+    padding: 6px 20px;
+    font-size: 12px;
+  }.form-control[type="text"] {
+    font-size: 12px; /* Reduce font size for Title input */
+    padding: 4px; /* Adjust padding to make it smaller */
+  }
+
+  .form-control[type="file"] {
+    font-size: 12px; /* Reduce font size for Choose File input */
+    padding: 4px; /* Adjust padding */
+  }
+}

@@ -193,3 +193,14 @@
   align-items: center;         /* Center items horizontally */
   justify-content: center;
 }
+
+@media screen and (max-width: 700px) {
+  .resume-cover-container {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 320px) {
+  .Logout {
+    top: 10px;
+  }
+}
