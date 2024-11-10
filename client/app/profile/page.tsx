@@ -37,7 +37,7 @@ const ProfilePage = () => {
               <Link href="/resume" className="pushable">
                 <span className="shadow"></span>
                 <span className="edge"></span>
-                <span className="front">Edit Resume</span>
+                <span className="front">Upload Resume</span>
               </Link>
             </div>
 

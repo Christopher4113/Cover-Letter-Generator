@@ -29,7 +29,7 @@ export const sendEmail = async({email,emailType, userId}: any) => {
         });
 
         const mailOptions = {
-            from: 'christopher.L4n@gmail.com',
+            from: 'aiclgenerator@gmail.com',
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email": "Reset your password",
             html: `<p> Hello and thank you for using the AI-cover letter generator. <br> Click <a href="${process.env.DOMAIN}/${emailType === "VERIFY" ? "verifyemail":"resetpassword"}?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}

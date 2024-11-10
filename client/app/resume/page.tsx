@@ -123,11 +123,13 @@ const ResumePage = () => {
                     Submit
                 </button>
             </form>
-            
+            <br/>
             <Link href="/profile" className='menu-button'>Menu</Link>
+            <Link href="/coverletter" className="gotocl">Generate Cover Letter</Link>
             <button onClick={logout} className="Logout">
                 Logout
             </button>
+            
             <div className="displayResume mt-4">
                 <table className="table table-bordered rounded">
                     <thead className="thead-dark">
@@ -152,6 +154,9 @@ const ResumePage = () => {
                     </tbody>
                 </table>
             </div>
+
+            
+
 
 
         </div>

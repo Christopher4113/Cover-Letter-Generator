@@ -7,7 +7,7 @@ const es = initEdgeStore.create();
 // Set up myPublicFiles with upload and delete functionality
 const edgeStoreRouter = es.router({
   myPublicFiles: es.fileBucket({
-    maxSize: 1024 * 1024 * 1, // 1MB
+    maxSize: 1024 * 1024 * 0.25, // 250KB
     accept: ["application/pdf"],
   })
   .beforeUpload(({ ctx, input, fileInfo }) => {
