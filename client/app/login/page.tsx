@@ -66,7 +66,7 @@ const LoginPage = () => {
           </form>
           <div className="form-section2">
             <p>
-              Don't have an account? <Link href="/signup">Signup</Link>{" "}
+              Don&apos;t have an account? <Link href="/signup">Signup</Link>{" "}
             </p>
             <p>
               Forgot Password? <Link href="/forgot">Forgot Password</Link>

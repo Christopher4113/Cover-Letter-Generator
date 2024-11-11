@@ -1,36 +1,35 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import React, {useEffect,useState} from "react";
-import "./verifyemail.css"
-
+import React, { useEffect, useState, useCallback } from "react";
+import "./verifyemail.css";
 
 export default function VerifyEmailPage() {
     const [token, setToken] = useState("");
     const [verified, setVerified] = useState(false);
     const [error, setError] = useState(false);
 
-    const verifyUserEmail = async () => {
+    const verifyUserEmail = useCallback(async () => {
         try {
-            await axios.post('/api/users/verifyemail', {token})
+            await axios.post('/api/users/verifyemail', { token });
             setVerified(true);
         } catch (error: any) {
             setError(true);
             console.log(error.response.data);
         }
-    }
+    }, [token]);
+
     useEffect(() => {
-        const urlToken = window.location.search.split("=")
-        [1];
+        const urlToken = window.location.search.split("=")[1];
         setToken(urlToken || "");
-    },[]);
-
+    }, []);
 
     useEffect(() => {
-        if(token.length > 0) {
+        if (token.length > 0) {
             verifyUserEmail();
         }
-    },[token]);
+    }, [token, verifyUserEmail]);
+
     return (
         <div className="flex-container">
             <h1 className="text-4xl">Email Verified</h1>
@@ -45,11 +44,9 @@ export default function VerifyEmailPage() {
             )}
             {error && (
                 <div>
-                    <h2 className="text-2xl">Error: There may have been a mistake when verifying Password </h2>
-                    
+                    <h2 className="text-2xl">Error: There may have been a mistake when verifying Email</h2>
                 </div>
             )}
-
         </div>
     );
 }
