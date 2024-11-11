@@ -11,6 +11,8 @@
   "dependencies": {
     "@edgestore/react": "^0.2.2",
     "@edgestore/server": "^0.2.2",
+    "@fontsource/noto-emoji": "^5.1.0",
+    "@fontsource/noto-sans": "^5.1.0",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",

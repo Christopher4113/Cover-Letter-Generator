@@ -269,6 +269,12 @@
   color: #666;
   box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
 }
+.importantNote {
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+}
 
 @media screen and (max-width: 1885px) {
   .reset,

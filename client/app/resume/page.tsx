@@ -20,6 +20,7 @@ const ResumePage = () => {
     const [info, setInfo] = useState<PdfDetails[]>([]); // Set the type for info
     const {edgestore} = useEdgeStore();
     const router = useRouter();
+    const [loading,setLoading] = React.useState(false);
 
     const logout = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -33,6 +34,7 @@ const ResumePage = () => {
     const uploadFile = async (e: React.FormEvent) => {
         try {
             e.preventDefault();
+            setLoading(true);
             setUrls(undefined);
             if (file) {
               const res = await edgestore.myPublicFiles.upload({
@@ -41,21 +43,26 @@ const ResumePage = () => {
 
               // you can run some server action or api here
               // to add the necessary data to your database
-              const fileUrl = res.url
-              await axios.post("/api/users/resume",{
+            const fileUrl = res.url
+            await axios.post("/api/users/resume",{
                 title,
                 res: fileUrl,
-              });
+            });
 
-              console.log(res);
-              setUrls({url:res.url});
-
-              router.refresh();
+              // Manually update the state to include the new resume
+            setInfo((prevInfo) => [
+                ...prevInfo,
+                { title, file: fileUrl },
+            ]);
+            console.log(res);
+            setUrls({url:res.url});
 
             }
         } catch (error:any) {
             console.log("Upload failed", error.response?.data || error.message);
             alert(`Upload failed: ${error.response?.data?.message || error.message}`);
+        } finally {
+            setLoading(false);
         }
         setFile(null)
         setTitle("")
@@ -97,7 +104,7 @@ const ResumePage = () => {
     return (
         <div className='background'>
             <form className='formStyle' onSubmit={uploadFile}>
-                <h4>Upload Resume PDF only</h4><br />
+                <h4>{loading ? "Uploading": "Upload Resume PDF only" }</h4><br />
                 <div className='inputContainer'>
                     <input
                         type='text'

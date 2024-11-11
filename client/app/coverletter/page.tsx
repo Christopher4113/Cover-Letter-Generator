@@ -8,6 +8,7 @@ import html2pdf from 'html2pdf.js';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+
 interface CoverLetter {
   filename: string;
   content: string;
@@ -20,6 +21,7 @@ interface PdfDetails {
 
 const CoverLetterPage = () => {
   const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
   const [info, setInfo] = useState<PdfDetails[]>([]);
   const [selectedResume, setSelectedResume] = useState<PdfDetails | null>(null); // Updated type
   const [jobDescription, setJobDescription] = useState<string>('');
@@ -63,6 +65,7 @@ const CoverLetterPage = () => {
       }
     try {
       // Fetch the file and convert it to a File object
+      setLoading(true);
       const formData = new FormData();
       // Fetch the file from the URL and convert to Blob
       const result = await fetch(selectedResume.file);
@@ -97,6 +100,8 @@ const CoverLetterPage = () => {
     } catch (error: any) {
       console.log("Generation failed", error.response?.data || error.message);
       alert(`Generation failed: ${error.response?.data?.message || error.message}`);
+    } finally {
+      setLoading(false);
     }
     setSelectedResume(null);
     setJobDescription('');
@@ -120,37 +125,32 @@ const CoverLetterPage = () => {
 
   const downloadPDF = (index: number) => {
     const letter = coverLetters[index];
-    const element = document.createElement('div');
+    
+    // Create a new jsPDF instance
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "pt",
+      format: "a4"
+    });
   
-    // Add inline CSS for better formatting
-    element.innerHTML = `
-      <div style="
-        font-family: Arial, sans-serif;
-        font-size: 10.5pt;
-        margin: 20px;
-        line-height: 1.6;
-        width: 80%;
-        max-width: 600px;
-        text-align: left;
-      ">
-        <p>${letter.content.replace(/\n/g, "<br>")}</p>
-      </div>
-    `;
+    // Set margins and font properties
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const margin = 40;
+    const maxLineWidth = pageWidth - margin * 2;
+    const fontSize = 12;
+    
+    pdf.setFont("Arial");
+    pdf.setFontSize(fontSize);
+    pdf.setTextColor(0, 0, 0);
   
-    const options = {
-      margin: [0.5, 0.5, 0.5, 0], // Top, left, bottom, right (in inches)
-      filename: `${letter.filename}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { 
-        scale: 2, 
-        useCORS: true, // Helps with cross-origin issues
-        letterRendering: true // Improves text rendering quality
-      },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy'] } // Handles page breaks correctly
-    };
-  
-    html2pdf().set(options).from(element).save();
+    // Split the text into lines that fit within the page width
+    const lines = pdf.splitTextToSize(letter.content, maxLineWidth);
+    
+    // Add the text content line by line
+    pdf.text(lines, margin, 60, { align: "left", baseline: "top" });
+    
+    // Save the PDF
+    pdf.save(`${letter.filename}.pdf`);
   };
 
   return (
@@ -184,7 +184,7 @@ const CoverLetterPage = () => {
       <br/>
       <div className='createCV'>
         <form className="formStyling" onSubmit={handleSubmit}>
-          <h4>Please Fill Out Form</h4>
+          <h4>{loading ? "Filling Form": "Please Fill Out Form"}</h4>
           <label htmlFor="resumeSelect">Select Resume:</label>
           <select
             id="resumeSelect"
@@ -224,6 +224,9 @@ const CoverLetterPage = () => {
       )}
       <br/>
       <br/>
+      {coverLetters.length > 0 && (
+        <h2 className='importantNote'>Note: Symbols or Emojiis will not render properly on the pdf when you download</h2>
+      )}
       <br/>
       <br/>
       <div className='box'>
