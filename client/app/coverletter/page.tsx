@@ -29,6 +29,7 @@ const CoverLetterPage = () => {
   const [company, setCompany] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [coverLetters, setCoverLetters] = useState<CoverLetter[]>([]);
+  const [fileNames, setFileNames] = useState<string[]>([]); // New state for custom file names
   const serverURL = process.env.NEXT_PUBLIC_FASTAPI_URL;
 
   const logout = async (e: React.MouseEvent) => {
@@ -97,6 +98,7 @@ const CoverLetterPage = () => {
       });
 
       setCoverLetters(generatedLetters);
+      setFileNames(generatedLetters.map(() => ''));
       alert("Cover letter generated successfully!"); 
     } catch (error: any) {
       console.log("Generation failed", error.response?.data || error.message);
@@ -123,18 +125,22 @@ const CoverLetterPage = () => {
     updatedLetters[index].content = newContent;
     setCoverLetters(updatedLetters);
   };
+  const handleFileNameChange = (index: number, name: string) => {
+    const updatedFileNames = [...fileNames];
+    updatedFileNames[index] = name;
+    setFileNames(updatedFileNames);
+  };
 
   const downloadPDF = (index: number) => {
     const letter = coverLetters[index];
-    
-    // Create a new jsPDF instance
+    const customFileName = fileNames[index] || letter.filename;
+
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "pt",
       format: "a4"
     });
   
-    // Set margins and font properties
     const pageWidth = pdf.internal.pageSize.getWidth();
     const margin = 40;
     const maxLineWidth = pageWidth - margin * 2;
@@ -143,15 +149,15 @@ const CoverLetterPage = () => {
     pdf.setFont("Arial");
     pdf.setFontSize(fontSize);
     pdf.setTextColor(0, 0, 0);
-  
-    // Split the text into lines that fit within the page width
+
     const lines = pdf.splitTextToSize(letter.content, maxLineWidth);
-    
-    // Add the text content line by line
     pdf.text(lines, margin, 60, { align: "left", baseline: "top" });
-    
-    // Save the PDF
-    pdf.save(`${letter.filename}.pdf`);
+
+    pdf.save(`${customFileName}.pdf`);
+
+    const updatedFileNames = [...fileNames];
+    updatedFileNames[index] = '';  // Clear the filename
+    setFileNames(updatedFileNames);  // Update the state to reflect the change
   };
 
   return (
@@ -240,6 +246,13 @@ const CoverLetterPage = () => {
                   className="coverLetterContent"
                   value={letter.content}
                   onChange={(e) => handleContentChange(index, e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Enter custom file name"
+                  value={fileNames[index]}
+                  onChange={(e) => handleFileNameChange(index, e.target.value)}
+                  className="fileNameInput"
                 />
                 <button onClick={() => downloadPDF(index)} className="downloadButton">Download as PDF</button>
               </div>

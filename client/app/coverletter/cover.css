@@ -275,6 +275,9 @@
   text-align: center;
   justify-content: center;
 }
+.fileNameInput {
+  color: black;
+}
 
 @media screen and (max-width: 1885px) {
   .reset,
