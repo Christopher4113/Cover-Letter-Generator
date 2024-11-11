@@ -29,6 +29,7 @@ const CoverLetterPage = () => {
   const [company, setCompany] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [coverLetters, setCoverLetters] = useState<CoverLetter[]>([]);
+  const serverURL = process.env.NEXT_PUBLIC_FASTAPI_URL;
 
   const logout = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -77,7 +78,7 @@ const CoverLetterPage = () => {
       formData.append("location", location);
       
       
-      const response = await axios.post("http://localhost:8000/generate_cover_letters", formData, {
+      const response = await axios.post(`${serverURL}/generate_cover_letters`, formData, {
         headers: {
             "Content-Type": "multipart/form-data"
         }
