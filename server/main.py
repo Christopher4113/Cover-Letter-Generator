@@ -43,6 +43,11 @@ class CoverLetter(BaseModel):
     filename: str
     content: str
 
+@app.get("/")
+async def health_check():
+    return "The health check is successful"
+
+
 @app.post("/generate_cover_letters", response_model=List[CoverLetter])
 async def generate_cover_letters(
     resume: UploadFile = File(...),  # Accept file using File()
