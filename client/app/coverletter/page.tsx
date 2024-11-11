@@ -4,9 +4,8 @@ import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import axios from 'axios';
-import html2pdf from 'html2pdf.js';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+
 
 
 interface CoverLetter {
@@ -213,7 +212,7 @@ const CoverLetterPage = () => {
             onChange={(e) => setJobDescription(e.target.value)}
             required
           />
-          <label htmlFor="today">Today's Date</label>
+          <label htmlFor="today">Today&apos;s Date</label>
           <input id='today' value={today} onChange={(e) => setToday(e.target.value)} required placeholder='Enter date'></input>
           <label htmlFor="company">Company Name</label>
           <input id='company' value={company} onChange={(e) => setCompany(e.target.value)} required placeholder='Enter Company'></input>
@@ -232,7 +231,7 @@ const CoverLetterPage = () => {
       <br/>
       <br/>
       {coverLetters.length > 0 && (
-        <h2 className='importantNote'>Note: Symbols or Emojiis will not render properly on the pdf when you download</h2>
+        <h2 className='importantNote'>Note: Any type of symbols will not render properly on the pdf when you download</h2>
       )}
       <br/>
       <br/>
