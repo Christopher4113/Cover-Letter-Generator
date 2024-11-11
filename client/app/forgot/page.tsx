@@ -59,7 +59,7 @@ const ForgotPage = () => {
           </form>
           <div className="form-section3">
             <p>
-              Don't have an account? <Link href="/signup">Signup</Link>{" "}
+              Do not have an account? <Link href="/signup">Signup</Link>{" "}
             </p>
             <p>
               Remembered Password? <Link href="/login">Login</Link>
