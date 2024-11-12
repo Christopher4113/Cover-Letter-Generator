@@ -14,7 +14,7 @@ export async function GET() {
             expires: new Date(0),  // Expire the cookie
             path: '/',  // Ensure the cookie is cleared across all paths
             sameSite: 'strict',  // Use lowercase "strict"
-            domain: '.vercel.app'
+            domain: 'cover-letter-generator-pi.vercel.app'
         });
         return response
     } catch (error: any) {
