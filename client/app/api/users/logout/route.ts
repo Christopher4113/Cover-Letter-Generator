@@ -13,7 +13,8 @@ export async function GET() {
             secure: process.env.NODE_ENV === 'production',  // Set to true only in production for secure cookies
             expires: new Date(0),  // Expire the cookie
             path: '/',  // Ensure the cookie is cleared across all paths
-            sameSite: 'strict'  // Use lowercase "strict"
+            sameSite: 'strict',  // Use lowercase "strict"
+            domain: '.vercel.app'
         });
         return response
     } catch (error: any) {
