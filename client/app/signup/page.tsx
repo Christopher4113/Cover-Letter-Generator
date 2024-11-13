@@ -21,6 +21,7 @@ const SignupPage = () => {
       setLoading(true)
       const response = await axios.post("/api/users/signup",user);
       console.log("Signup success", response.data);
+      alert("Check your email to verify your account")
       router.push("/login")
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {

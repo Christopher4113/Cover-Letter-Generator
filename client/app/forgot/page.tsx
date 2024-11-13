@@ -21,7 +21,7 @@ const ForgotPage = () => {
           setLoading(true);
           const response = await axios.put("/api/users/forgot",user);
           console.log("Changes success", response.data);
-          toast.success("Changes Success")
+          alert("Check your email to verify your new password")
           router.push("/login"); 
         } catch (error:any) {
           console.log("Changes failed", error.message);
