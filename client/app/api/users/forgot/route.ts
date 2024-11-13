@@ -23,6 +23,7 @@ export async function PUT(request: NextRequest) {
         const salt = await bcryptjs.genSalt(10)
         const hashedPassword = await bcryptjs.hash(password,salt)
 
+        user.isVerified = false; // Set isVerified to false after resetting password
         user.password = hashedPassword
         const updatedUser = await user.save();
 
