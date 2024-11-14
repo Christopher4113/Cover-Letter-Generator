@@ -147,5 +147,5 @@ Please adhere to this project's `code of conduct`.
 
 ## Feedback
 
-If you have any feedback, please reach out to us at christopher.L4n@gmail.com
+If you have any feedback, please reach out to us at ch.lam1328@gmail.com
 
