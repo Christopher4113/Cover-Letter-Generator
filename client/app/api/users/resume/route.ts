@@ -7,6 +7,7 @@ import { getDataFromToken } from "@/helpers/getDataFromToken"; // Adjust the imp
 
 connect()
 
+
 const authenticateToken = async (req: NextRequest) => {
     try {
         const userId = getDataFromToken(req); // Use your utility function to get user ID
