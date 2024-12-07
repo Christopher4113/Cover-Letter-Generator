@@ -1,7 +1,7 @@
 
 # AI Cover Letter Generator
 
-A Cover Letter Genertator where it lets you input resumes, job description, etc and it using ai, it creates a custom letter for you
+A Cover Letter Generator where it lets you input resumes and job description.Using AI, it creates a custom cover letter for you
 
 
 
