@@ -129,7 +129,7 @@ const CoverLetterPage = () => {
     updatedFileNames[index] = name;
     setFileNames(updatedFileNames);
   };
-
+  //downloadPDF
   const downloadPDF = (index: number) => {
     const letter = coverLetters[index];
     const customFileName = fileNames[index] || letter.filename;
@@ -139,6 +139,7 @@ const CoverLetterPage = () => {
       unit: "pt",
       format: "a4"
     });
+    
   
     const pageWidth = pdf.internal.pageSize.getWidth();
     const margin = 40;
