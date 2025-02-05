@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import "./styles.css";
 import axios from 'axios';
-//test
 const SignupPage = () => {
   const router = useRouter();
   const [user, setUser] = React.useState({
