@@ -7,6 +7,7 @@ import axios from 'axios';
 import {toast} from 'react-hot-toast';
 
 const LoginPage = () => {
+  
   const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
