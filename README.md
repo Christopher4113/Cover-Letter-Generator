@@ -26,7 +26,7 @@ Install my-project with npm
     
 ## Demo
 
-https://www.cover-ai.ca
+https://cover-letter-generator-pi.vercel.app/
 
 
 ## API Reference
